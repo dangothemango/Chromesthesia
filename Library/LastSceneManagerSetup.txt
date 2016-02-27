@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Beat Detection/Event - Example/Event_Example.unity
-  isLoaded: 1
-  isActive: 1
