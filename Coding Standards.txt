@@ -1,0 +1,7 @@
+Coding Standards:
+
+	- _lowerCamelCase for variable names
+	- CamelCase for class types
+	- /// For function comments
+	- // For comments within functions
+	
