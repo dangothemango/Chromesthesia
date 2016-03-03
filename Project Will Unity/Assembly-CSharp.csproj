@@ -51,6 +51,7 @@
      <Compile Include="Assets\Beat Detection\No Event - Example Mic Input\BeatDetectionExampleMic.cs" />
      <Compile Include="Assets\Beat Detection\No Event - Example\BeatDetectionExample.cs" />
      <Compile Include="Assets\PhasePlatform.cs" />
+     <Compile Include="Assets\Scripts\Character\MovementController.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\EnemyAvoider.cs" />
      <Compile Include="Assets\Scripts\EnemyProjectile.cs" />
