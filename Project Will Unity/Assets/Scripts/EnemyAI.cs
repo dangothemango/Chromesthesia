@@ -5,20 +5,23 @@ public class EnemyAI : MonoBehaviour {
     //Dynamic enemy variables
     public float speed = 2f;
     public float health = 5f;
-    public string type;
-
     
     //projectile variables
     public bool isAttacking = false;
     private float distance;
     private float distanceFrom;
-    public GameObject projectile;
-    public GameObject projectileSpawn;
+    public GameObject projectile1;
+    public GameObject projectile2;
+    public GameObject projectile3;
+    public GameObject projectile4;    //Create an empty game object and place spawn loc on enemy object.
     private Vector3 positiveVector;
 
     //Shot speed
     public float fireRate = 2.0f;
     public float fireRateConst;
+
+    //Beat variables
+    public GameObject audioBeat;
 
     //Keeps track of waypoints
     public GameObject[] Waypoints;
@@ -42,7 +45,34 @@ public class EnemyAI : MonoBehaviour {
 
     //Set this to declare the current state.
     public State state;
+    
 
+    //Catch the beat
+    void catchBeatSignals(BeatDetection.EventInfo eventInfo)
+    {
+        switch (eventInfo.messageInfo)
+        {
+            case BeatDetection.EventType.Kick:
+                Shoot(projectile1);
+                Debug.Log("Kick");
+                break;
+            case BeatDetection.EventType.HitHat:
+                Debug.Log("Hithat");
+                Shoot(projectile2);
+
+                break;
+            case BeatDetection.EventType.Energy:
+                Debug.Log("Energy");
+                Shoot(projectile3);
+
+                break;
+            case BeatDetection.EventType.Snare:
+                Debug.Log("Snare");
+                Shoot(projectile4);
+
+                break;
+        }
+    }
     // Use this for initialization
     void Start () {
         //Initialize waypoints
@@ -54,20 +84,27 @@ public class EnemyAI : MonoBehaviour {
         nav = GetComponent<NavMeshAgent>();
         nav.updatePosition = true;
         nav.updateRotation = true;
+        
+        //Find the player, because it's always useful to know where the player is if you are an enemy.
         player = GameObject.Find("Player");
         enemySight = GetComponent<EnemySight>();
-        type = "basic";
         state = EnemyAI.State.WANDERING;
+
+
         //projectile
         fireRateConst = fireRate;
         fireRate = 0;
-        projectileSpawn = GameObject.Find("ProjectileSpawn");
-        projectile = GameObject.Find("projectile1");
-        
+       // projectileSpawn = GameObject.Find("ProjectileSpawn");
+        //projectile = GameObject.Find("projectile1");
+        //Get beat
+        audioBeat.GetComponent<BeatDetection>().CallBackFunction = catchBeatSignals;
+
+
         //Infinitely loops the finite state machine
         StartCoroutine("FSM");
 	}
     //Finite State Machine
+    //Switches between states based on conditions.
     IEnumerator FSM()
     {
         while (true)
@@ -96,6 +133,7 @@ public class EnemyAI : MonoBehaviour {
     {
         //Set the speed of the AI during this state.
         nav.speed = speed;
+
         //If waypointindex is out of range, set it back to 0.
         if (WaypointIndex >= Waypoints.Length) WaypointIndex = 0;
             //set the new waypoint.
@@ -115,26 +153,23 @@ public class EnemyAI : MonoBehaviour {
             WaypointIndex = Random.Range(0,Waypoints.Length);
         }   
     }
-    void Shoot()
+    void Shoot(GameObject proj)
     {
-        
-        //Need beat  vars here later
-        nav.destination = player.transform.position;
         //Fire projectiles
-        if (fireRate > 0.0)
+      /*  if (fireRate > 0.0)
         {
             //modify this to the beat or whatever
             fireRate -= Time.deltaTime;
         }
         else if (fireRate <= 0)
-        {
+        {*/
             direction = (player.transform.position - transform.position).normalized;
             
             positiveVector = transform.position + transform.forward;
             // transform.rotation = Quaternion.LookRotation(player.transform.forward);
-            Instantiate(projectile, positiveVector, transform.rotation);
+            Instantiate(proj, positiveVector, transform.rotation);
             fireRate = fireRateConst;
-        }
+      //  }
     }
 
 }

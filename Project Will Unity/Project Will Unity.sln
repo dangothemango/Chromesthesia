@@ -1,7 +1,7 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project Will Unity.CSharp", "Project Will Unity.CSharp.csproj", "{C2401D50-1044-D2B3-87D0-A3F8481F35A7}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{577205D7-59C3-FB5F-8CDB-49C980F11621}") = "Project Will Unity", "Assembly-CSharp.csproj", "{836FDFB1-D356-5E06-A670-510BEAB8E816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +9,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C2401D50-1044-D2B3-87D0-A3F8481F35A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2401D50-1044-D2B3-87D0-A3F8481F35A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2401D50-1044-D2B3-87D0-A3F8481F35A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2401D50-1044-D2B3-87D0-A3F8481F35A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{836FDFB1-D356-5E06-A670-510BEAB8E816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{836FDFB1-D356-5E06-A670-510BEAB8E816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{836FDFB1-D356-5E06-A670-510BEAB8E816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{836FDFB1-D356-5E06-A670-510BEAB8E816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
