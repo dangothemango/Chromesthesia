@@ -1,3 +1,3 @@
-# Project-Will-Pheloung
+# Chromesthesia
 
-Contributors: Dan Gorman, Will Phelong, Rajas Nagpurkar, Tommy Fang, Matt Yoder, Axel Stewart, Claire Zhu
+Contributors: Dan Gorman, Rajas Nagpurkar, Tommy Fang, Matt Yoder, Axel Stewart, Claire Zhu
