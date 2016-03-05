@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/CharacterTesting.unity
+- path: Assets/Scenes/Matt Yoder Platform Test.unity
   isLoaded: 1
   isActive: 1

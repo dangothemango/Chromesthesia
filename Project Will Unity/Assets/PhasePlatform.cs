@@ -7,6 +7,8 @@ public class PhasePlatform : MonoBehaviour {
     MeshRenderer visual;
     Collider collide;
     float beatTimer = 0f;
+    int beats = 0;
+    public int BPF;
 
     void catchBeatSignals(BeatDetection.EventInfo eventInfo)
     {
@@ -15,7 +17,12 @@ public class PhasePlatform : MonoBehaviour {
             case BeatDetection.EventType.Kick:
                 if (beatTimer > .25)
                 {
-                    ToggleActive();
+                    beats++;
+                    if (beats >= BPF)
+                    {
+                        beats = 0;
+                        ToggleActive();
+                    }
                 }
                 break;
         }

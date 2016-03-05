@@ -4,6 +4,7 @@ using System.Collections;
 public class MovementController : MonoBehaviour {
 
     public float maxSpeed;
+    public float minMovement;
     public float acceleration;
     public float jumpHeight;
     Rigidbody r;
@@ -17,14 +18,65 @@ public class MovementController : MonoBehaviour {
 	void Update () {
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
+        float newZ = r.velocity.z ;
+        float newX = r.velocity.x;
+        float newY = r.velocity.y;
+        int zAccFactor = 1;
+        int xAccFactor = 1;
 
-        Vector3 movementDirection = new Vector3(horiz*acceleration, r.velocity.y, vert*acceleration);
-        r.velocity = movementDirection;
-
-        if (Input.GetAxis("Jump")!=0 && Mathf.Abs(r.velocity.y) < 0.01f)
+        if (Mathf.Abs(r.velocity.z - vert * maxSpeed)>maxSpeed/4)
         {
-            movementDirection.y = jumpHeight;
+            zAccFactor = 2;
         }
-        r.velocity = movementDirection;
+
+        if (Mathf.Abs(r.velocity.x - horiz * maxSpeed) > maxSpeed / 4)
+        {
+            xAccFactor = 2;
+        }
+
+        if (Mathf.Abs(vert) > minMovement){
+            if (Mathf.Abs(r.velocity.z) < Mathf.Abs(maxSpeed*vert))
+                newZ = r.velocity.z + acceleration * zAccFactor * vert;
+        }
+        else
+        {
+            if (r.velocity.z >0){
+                newZ=(Mathf.Max(r.velocity.z-acceleration * zAccFactor,0));
+            }
+            else if (r.velocity.z < 0)
+            {
+                newZ=(Mathf.Min(r.velocity.z+acceleration * zAccFactor,0));
+            }
+        }
+        if (Mathf.Abs(horiz) > minMovement)
+        {
+            if (Mathf.Abs(r.velocity.x) < Mathf.Abs(maxSpeed*horiz))
+                newX = r.velocity.x + acceleration * horiz * xAccFactor;
+        }
+        else
+        {
+            if (r.velocity.x > 0)
+            {
+                newX = (Mathf.Max(r.velocity.x - acceleration * xAccFactor, 0));
+            }
+            else if (r.velocity.x < 0)
+            {
+                newX = (Mathf.Min(r.velocity.x + acceleration * xAccFactor, 0));
+            }
+        }
+
+
+        if (Input.GetAxis("Jump") == 1)
+        {
+            if (Mathf.Abs(r.velocity.y) < .1)
+            {
+                newY = jumpHeight;
+            }
+        }
+
+
+
+        r.velocity = new Vector3(newX, newY, newZ);
 	}
+
 }
