@@ -1,54 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PhasePlatform : MonoBehaviour {
-    public bool isSolid;
-    public GameObject AudioBeat;
-    MeshRenderer visual;
+public class PhasePlatform : BeatObject {
+    public bool solid;
+    MeshRenderer render;
     Collider collide;
-    float beatTimer = 0f;
-    int beats = 0;
-    public int BPF;
 
-    void catchBeatSignals(BeatDetection.EventInfo eventInfo)
+    override public void onBeat()
     {
-        switch (eventInfo.messageInfo)
-        {
-            case BeatDetection.EventType.Kick:
-                if (beatTimer > .25)
-                {
-                    beats++;
-                    if (beats >= BPF)
-                    {
-                        beats = 0;
-                        ToggleActive();
-                    }
-                }
-                break;
-        }
+        print("beat triggered");
+        solid = !solid;
+        render.enabled = collide.enabled = solid;
     }
-
 
 	// Use this for initialization
 	void Start () {
-        visual = gameObject.GetComponent<MeshRenderer>();
+        base.Start();
+
+        render = gameObject.GetComponent<MeshRenderer>();
         collide = gameObject.GetComponent<Collider>();
-
-        visual.enabled = isSolid;
-        collide.enabled = isSolid;
-
-        AudioBeat.GetComponent<BeatDetection>().CallBackFunction = catchBeatSignals;
+        render.enabled = collide.enabled = solid;
+        // AudioBeat.GetComponent<BeatDetection>().CallBackFunction = catchBeatSignals;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        beatTimer += Time.deltaTime;
+        base.Update();
 	}
-
-    void ToggleActive() {
-        isSolid = !isSolid;
-        visual.enabled = collide.enabled = isSolid;
-        print("Time between beats:" + beatTimer);
-        beatTimer = 0;
-    }
 }
