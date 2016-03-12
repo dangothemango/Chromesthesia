@@ -58,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -75,6 +69,7 @@
     <Compile Include="Assets\Beat Detection\No Event - Example Mic Input\BeatDetectionExampleMic.cs" />
     <Compile Include="Assets\Beat Detection\No Event - Example\BeatDetectionExample.cs" />
     <Compile Include="Assets\BeatObject.cs" />
+    <Compile Include="Assets\BeatSignalManager.cs" />
     <Compile Include="Assets\OldPhasePlatform.cs" />
     <Compile Include="Assets\PhasePlatform.cs" />
     <Compile Include="Assets\Scripts\Character\MovementController.cs" />
