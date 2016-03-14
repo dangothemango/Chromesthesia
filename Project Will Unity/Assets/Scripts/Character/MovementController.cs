@@ -7,6 +7,7 @@ public class MovementController : MonoBehaviour {
     public float minMovement;
     public float acceleration;
     public float jumpHeight;
+	public float hitDistance;
     Rigidbody r;
 
 	// Use this for initialization
@@ -74,7 +75,18 @@ public class MovementController : MonoBehaviour {
             }
         }
 
+		if (Input.GetAxis("Fire1") == 1){
+			RaycastHit hit;
+			if (Physics.Raycast(transform.position, transform.forward,out hit, hitDistance)){
+				Interactable[] il = hit.collider.gameObject.GetComponents<Interactable>();
+				if (il.Length>0){
+					foreach(Interactable i in il){
+						i.onHit();
+					}
+				}
+			}
 
+		}
 
         r.velocity = new Vector3(newX, newY, newZ);
 	}
