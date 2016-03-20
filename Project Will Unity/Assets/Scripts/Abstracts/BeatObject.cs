@@ -3,93 +3,107 @@ using System.Collections;
 
 abstract public class BeatObject : MonoBehaviour {
 
-    public bool kick;
-    public bool snare;
-    public bool hitHat;
-    public bool energy;
+    public enum BeatType { None, Kick, Snare, HiHat, Energy};
 
-    float beatTimer = 0f;
+    public BeatType beatTrigger1;
+    public BeatType beatTrigger2;
+    public BeatType beatTrigger3;
+    public BeatType beatTrigger4;
 
-    public GameObject AudioBeat;
-
-    /// <summary>
-    /// This is defined by children of the BeatObject class, and contains the behaviors to be executed on a beat.
-    /// </summary>
-    abstract public void onBeat();
-
-    /// <summary>
-    /// Checks if the beat is triggering again sooner than expected (as defined by maxBPM)
-    /// </summary>
-    /// <returns>
-    /// True if the beat an erreneous double trigger, false if the beat is valid.
-    /// </returns>
-    bool doubleTrigger()
-    {
-        print( beatTimer);
-        return beatTimer < .25;  
-    }
-
-    /// <summary>
-    /// This method is in charge of catching signals being sent by BeatDetection and checking if they are the correct type of signal (as defined by BeatType beat)
-    /// </summary>
-    /// <param name="eventInfo">The event being sent by BeatDetection</param>
-    public void catchBeatSignals(BeatDetection.EventInfo eventInfo)
-    {
-        switch (eventInfo.messageInfo)
-        {
-            case BeatDetection.EventType.Kick:
-                // print("The conditions are borked");
-                if (kick && !doubleTrigger())
-                {
-                    beatTimer = 0f;
-                    onBeat();
-                }
-                break;
-            
-            case BeatDetection.EventType.Snare:
-                if (snare && !doubleTrigger())
-                {
-                    beatTimer = 0f;
-                    onBeat();
-                }
-                break;
-            case BeatDetection.EventType.HitHat:
-                if (hitHat && !doubleTrigger())
-                {
-                    beatTimer = 0f;
-                    onBeat();
-                }
-                break;
-            case BeatDetection.EventType.Energy:
-                if (energy && !doubleTrigger())
-                {
-                    beatTimer = 0f;
-                    onBeat();
-                }
-                break;
-                /*
-                if (beatTimer > .25)
-                {
-                    beats++;
-                    if (beats >= BPF)
-                    {
-                        beats = 0;
-                        ToggleActive();
-                    }
-                }
-                break;
-                */
-        }
-    }
 
     // Use this for initialization
-    public virtual void Start()
-    {
-        AudioBeat.GetComponent<BeatDetection>().CallBackFunction = catchBeatSignals;
-    }
+    protected void Start () {
+        BeatSignalManager manager = GameObject.Find("Main Camera").GetComponent<BeatSignalManager>();
+        manager.addBeatObject(this);
+	}
 	
 	// Update is called once per frame
-	public virtual void Update () {
-        beatTimer += Time.deltaTime;
+	protected void Update () {
+	
 	}
+
+    /// <summary>
+    /// Each function beat1 through beat4 can be triggered by a different beat type.
+    /// 
+    /// Only beat1 must be overridden.
+    /// </summary>
+    protected abstract void beat1();
+
+    void beat2() { }
+
+    void beat3() { }
+
+    void beat4() { }
+
+    /// <summary>
+    /// Triggers any functions set to trigger on a Kick beat
+    /// </summary>
+    public void kick()
+    {
+        if (beatTrigger1 == BeatType.Kick)
+            beat1();
+
+        if (beatTrigger2 == BeatType.Kick)
+            beat2();
+
+        if (beatTrigger3 == BeatType.Kick)
+            beat3();
+
+        if (beatTrigger4 == BeatType.Kick)
+            beat4();
+    }
+
+    /// <summary>
+    /// Triggers any functions set to trigger on a Snare beat
+    /// </summary>
+    public void snare()
+    {
+        if (beatTrigger1 == BeatType.Snare)
+            beat1();
+
+        if (beatTrigger2 == BeatType.Snare)
+            beat2();
+
+        if (beatTrigger3 == BeatType.Snare)
+            beat3();
+
+        if (beatTrigger4 == BeatType.Snare)
+            beat4();
+    }
+
+    /// <summary>
+    /// Triggers any functions set to trigger on a HiHat beat
+    /// </summary>
+    public void hiHat()
+    {
+        if (beatTrigger1 == BeatType.HiHat)
+            beat1();
+
+        if (beatTrigger2 == BeatType.HiHat)
+            beat2();
+
+        if (beatTrigger3 == BeatType.HiHat)
+            beat3();
+
+        if (beatTrigger4 == BeatType.HiHat)
+            beat4();
+    }
+
+    /// <summary>
+    /// Triggers any functions set to trigger on an Energy beat
+    /// </summary>
+    public void energy()
+    {
+        if (beatTrigger1 == BeatType.Energy)
+            beat1();
+
+        if (beatTrigger2 == BeatType.Energy)
+            beat2();
+
+        if (beatTrigger3 == BeatType.Energy)
+            beat3();
+
+        if (beatTrigger4 == BeatType.Energy)
+            beat4();
+    }
 }

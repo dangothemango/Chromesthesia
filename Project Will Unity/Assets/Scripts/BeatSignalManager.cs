@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BeatSignalManager : MonoBehaviour {
 
@@ -18,7 +19,14 @@ public class BeatSignalManager : MonoBehaviour {
     float hiHatTimer;
     float energyTimer;
 
+    List<BeatObject> beatObjects = new List<BeatObject>();
+
     GameObject audioBeat;
+
+    public void addBeatObject(BeatObject bObj)
+    {
+        beatObjects.Add(bObj);
+    }
 
     public void catchBeatSignals(BeatDetection.EventInfo eventInfo)
     {
@@ -63,7 +71,10 @@ public class BeatSignalManager : MonoBehaviour {
     /// </summary>
     void sendKick()
     {
-
+        foreach(BeatObject obj in beatObjects)
+        {
+            obj.kick();
+        }
     }
 
     /// <summary>
@@ -73,7 +84,10 @@ public class BeatSignalManager : MonoBehaviour {
     /// </summary>
     void sendSnare()
     {
-
+        foreach (BeatObject obj in beatObjects)
+        {
+            obj.snare();
+        }
     }
 
     /// <summary>
@@ -83,7 +97,10 @@ public class BeatSignalManager : MonoBehaviour {
     /// </summary>
     void sendHiHat()
     {
-
+        foreach (BeatObject obj in beatObjects)
+        {
+            obj.hiHat();
+        }
     }
 
     /// <summary>
@@ -93,7 +110,10 @@ public class BeatSignalManager : MonoBehaviour {
     /// </summary>
     void sendEnergy()
     {
-
+        foreach (BeatObject obj in beatObjects)
+        {
+            obj.energy();
+        }
     }
 
     // Use this for initialization

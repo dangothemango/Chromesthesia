@@ -1,30 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
-public class PhasePlatform : BeatObject {
-
+public class OldPhasePlatform : OldBeatObject {
     public bool solid;
     MeshRenderer render;
     Collider collide;
 
-    protected override void beat1()
+    override public void onBeat()
     {
+        print("beat triggered");
         solid = !solid;
         render.enabled = collide.enabled = solid;
     }
 
-    // Use this for initialization
-    new void Start () {
+	// Use this for initialization
+	void Start () {
         base.Start();
 
         render = gameObject.GetComponent<MeshRenderer>();
         collide = gameObject.GetComponent<Collider>();
         render.enabled = collide.enabled = solid;
+        // AudioBeat.GetComponent<BeatDetection>().CallBackFunction = catchBeatSignals;
     }
 	
 	// Update is called once per frame
-	new void Update () {
-        base.Update();  // It's here just in case anything is added to its base class's Update()
+	void Update () {
+        base.Update();
 	}
 }

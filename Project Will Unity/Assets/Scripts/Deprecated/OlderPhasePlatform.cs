@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OldPhasePlatform : MonoBehaviour {
+public class OlderPhasePlatform : MonoBehaviour {
     public bool isSolid;
     public GameObject AudioBeat;
     MeshRenderer visual;
