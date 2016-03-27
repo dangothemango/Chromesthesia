@@ -5,6 +5,8 @@ abstract public class BeatObject : MonoBehaviour {
 
     public enum BeatType { None, Kick, Snare, HiHat, Energy};
 
+    public bool debugTriggers = false;
+
     public BeatType beatTrigger1;
     public BeatType beatTrigger2;
     public BeatType beatTrigger3;
@@ -19,7 +21,25 @@ abstract public class BeatObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected void Update () {
-	
+        if (debugTriggers)
+        {
+            if (Input.GetKeyDown("1"))
+            {
+                beat1();
+            }
+            if (Input.GetKeyDown("2"))
+            {
+                beat2();
+            }
+            if ((Input.GetKeyDown("3")))
+            {
+                beat3();
+            }
+            if (Input.GetKeyDown("4"))
+            {
+                beat4();
+            }
+        }
 	}
 
     /// <summary>
@@ -106,4 +126,6 @@ abstract public class BeatObject : MonoBehaviour {
         if (beatTrigger4 == BeatType.Energy)
             beat4();
     }
+
+    
 }
